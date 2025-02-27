@@ -34,7 +34,7 @@ export const routes = [
           {
             index: true,
             element: (
-              <ProtectedRoute requiredPermissions={['view:dashboard']}>
+              <ProtectedRoute requiredRoles={['admin']}>
                 <Dashboard />
               </ProtectedRoute>
             )
@@ -53,11 +53,7 @@ export const routes = [
         children:[
           {
             path: paths.login,
-            element: (
-              <ProtectedRoute requiredPermissions={['public']}>
-                <Login />
-              </ProtectedRoute>
-            )
+            element: <Login />
           }
         ]
       },

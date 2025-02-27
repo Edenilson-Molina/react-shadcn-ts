@@ -3,67 +3,65 @@ import { createContext, PropsWithChildren, useContext, useEffect, useState } fro
 import { useNavigate } from 'react-router-dom';
 
 interface AuthContextType {
-  permissions: Array<string>;
+  roles: Array<string>;
   isAuthenticated: boolean;
-  setPermissions: (permissions: Array<string>) => void;
-  hasPermission: (permission: string) => boolean;
+  hasRole: (role: string) => boolean;
   login: () => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
-  permissions: [],
+  roles: [],
   isAuthenticated: false,
-  setPermissions: () => {},
-  hasPermission: () => false,
+  hasRole: () => false,
   login: () => {},
   logout: () => {}
 });
 
 export function AuthProvider({ children }: PropsWithChildren) {
   const navigate = useNavigate();
-  const [ permissions, setPermissions ] = useState<Array<string>>(() => {
-    const storedPermissions = localStorage.getItem('permissions');
-    return storedPermissions ? JSON.parse(storedPermissions) : ['public'];
+  const [ roles, setRoles ] = useState<Array<string>>(() => {
+    const storedPermissions = localStorage.getItem('roles');
+    return storedPermissions ? JSON.parse(storedPermissions) : ['guest'];
   });
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return !!localStorage.getItem('permissions');
+    return !!localStorage.getItem('roles');
   });
 
   useEffect(() => {
     if(isAuthenticated) {
-      localStorage.setItem('permissions', JSON.stringify(permissions));
+      localStorage.setItem('roles', JSON.stringify(roles));
     } else {
-      localStorage.removeItem('permissions');
+      localStorage.removeItem('roles');
     }
-  }, [permissions, isAuthenticated]);
+  }, [roles, isAuthenticated]);
 
   // Check if the user has a permission
-  const hasPermission = (permission: string) => {
-    return permissions.includes(permission);
+  const hasRole = (role: string) => {
+    return roles.includes(role);
   }
 
   // Login function
   const login = async () => {
-    // Fetch permissions from the server
-    const fetchPermissions = async () => {
-      setPermissions(['view:dashboard', 'view:settings']);
+    // Fetch roles from the server
+    const fetchRoles = async () => {
+      setRoles(['admin', 'master']);
     }
-    await fetchPermissions();
+    await fetchRoles();
     setIsAuthenticated(true);
     navigate(paths.default);
   }
 
   // Logout function
   const logout = () => {
-    setPermissions(['public']);
+    setRoles(['public']);
     setIsAuthenticated(false);
     navigate(paths.login);
   }
 
   return (
-    <AuthContext.Provider value={{ permissions, setPermissions, hasPermission, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ roles, hasRole, isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
