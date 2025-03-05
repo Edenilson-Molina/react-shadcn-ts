@@ -11,11 +11,16 @@ const DashboardPage = () => {
     logout();
     navegate(paths.login);
   }
+
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <Button onClick={ handleLogout }>Logout</Button>
-    </div>
+    <>
+      <header>
+      </header>
+      <main>
+        <h1 className="text-lg font-bold">Dashboard</h1>
+        <Button onClick={handleLogout}>Logout</Button>
+      </main>
+    </>
   );
 }
 

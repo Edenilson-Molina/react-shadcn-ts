@@ -42,7 +42,6 @@ export const routes = [
         ]
       },
       {
-        path: rootPaths.authRoot,
         element: (
           <AuthLayout>
             <Suspense fallback={<div>Loading Auth Layout...</div>}>
@@ -52,9 +51,10 @@ export const routes = [
         ),
         children:[
           {
+            index: true,
             path: paths.login,
             element: <Login />
-          }
+          },
         ]
       },
       {
