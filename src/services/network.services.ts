@@ -3,15 +3,34 @@ import { useAuthStore } from "@/store/authStore";
 
 const baseURL = "http://localhost:8000";
 
-const createAxiosInstance = axios.create({
-  baseURL,
+const instance = axios.create({
+  baseURL: import.meta.env.VITE_VUE_APP_API_URL || baseURL,
   headers: {
     "Content-type": "application/json",
-    Accept: "application/json",
+    "Accept": "application/json",
+    "Authorization": "",
   },
-  timeout: 5000,
+  withCredentials: false,
 });
 
-createAxiosInstance.defaults.headers.common["Authorization"] = "Bearer " + useAuthStore.getState().token;
+instance.interceptors.request.use((config) => {
+  const token = useAuthStore.getState().token;
+  if (token) {
+    config.headers["Authorization"] = "Bearer " + token;
+  }
+  return config;
+});
 
-export default createAxiosInstance;
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => { 
+    if (error.response && error.response.status === 401) {
+      useAuthStore.getState().logout();
+    }
+    return Promise.reject(error);
+  }
+)
+
+export default instance;

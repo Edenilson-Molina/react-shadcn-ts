@@ -37,7 +37,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <main className="bg-[url(/src/assets/img/fondo-react-light.png)] dark:bg-[url(/src/assets/img/fondo-react-dark.jpg)] bg-center bg-cover flex min-h-screen justify-center items-center p-8">
+      <main className="bg-center bg-cover flex min-h-screen justify-center items-center p-8">
         <Card className="w-full sm:w-[24rem] backdrop-blur-xl bg-white/30 dark:bg-black/30 border-none">
           <CardHeader>
             <CardTitle>

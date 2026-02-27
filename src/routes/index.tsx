@@ -1,81 +1,71 @@
-import { Suspense, lazy } from "react";
-import { createBrowserRouter, Outlet, Navigate } from "react-router";
-
-import paths, { rootPaths } from "./path";
+import { lazy, type ReactNode, Suspense } from "react";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 
 import ProtectedRoute from "@/components/specific/ProtectedRoute";
+import paths, { rootPaths } from "./path";
 
-/* --------------------- Lazy Load ---------------------- */
 const App = lazy(() => import("@/App"));
 const MainLayout = lazy(() => import("@/layouts/main-layout"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
 const AuthLayout = lazy(() => import("@/layouts/auth-layout"));
-const Login = lazy(() => import("@/pages/authentication/login"));
-/* ------------------------------------------------------ */
+const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
+
+const RouteFallback = () => <div>Loading...</div>;
+const withSuspense = (node: ReactNode) => (
+  <Suspense fallback={<RouteFallback />}>{node}</Suspense>
+);
 
 export const routes = [
   {
-    element:(
-      <Suspense fallback={<div>Loading...</div>}>
-        <App />
-      </Suspense>
-    ),
-    children:[
+    element: withSuspense(<App />),
+    errorElement: <div>Algo salió mal</div>,
+    children: [
       {
         path: paths.default,
-        element: (
+        element: withSuspense(
           <MainLayout>
-            <Suspense fallback={<div>Loading Main Layout...</div>}>
-              <Outlet />
-            </Suspense>
+            <Outlet />
           </MainLayout>
         ),
         children: [
           {
             index: true,
             element: (
-              <ProtectedRoute requiredRoles={['admin']}>
+              <ProtectedRoute requiredRoles={["admin"]}>
                 <Dashboard />
               </ProtectedRoute>
-            )
-          }
-        ]
+            ),
+          },
+        ],
       },
       {
-        element: (
+        path: rootPaths.authRoot,
+        element: withSuspense(
           <AuthLayout>
-            <Suspense fallback={<div>Loading Auth Layout...</div>}>
-              <Outlet />
-            </Suspense>
+            <Outlet />
           </AuthLayout>
         ),
-        children:[
-          {
-            index: true,
-            path: paths.login,
-            element: <Login />
-          },
-        ]
+        children: [
+          { index: true, element: <Navigate to={paths.login} replace /> },
+          { path: "login", element: <LoginPage /> },
+        ],
       },
       {
         path: rootPaths.errorRoot,
         children: [
           {
-            path: paths.notFound,
-            element: <div>404 Not Found</div>
-          }
-        ]
+            path: "404",
+            element: <div>404 Not Found</div>,
+          },
+        ],
       },
-      {
-        path: '*',
-        element: <Navigate to={ paths.notFound } replace />
-      }
-    ]
-  }
+      { path: "*", element: <Navigate to={paths.notFound} replace /> },
+    ],
+  },
 ];
 
 const router = createBrowserRouter(routes, {
-  basename: '/'
+  basename: "/",
 });
 
 export default router;

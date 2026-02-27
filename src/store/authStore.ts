@@ -1,8 +1,32 @@
+import { AuthState } from '@/types/auth.interface';
 import { create } from 'zustand';
 import { persist, createJSONStorage, StateStorage } from 'zustand/middleware';
 import CryptoJS from 'crypto-js';
 
-const ENCRYPTION_KEY = 'my-secret-key';
+const ENCRYPTION_KEY = import.meta.env.VITE_ENCRYPTION_KEY || 'default';
+
+export const useAuthStore = create(
+  persist<AuthState>(
+    (set, get) => ({
+      roles: [],
+      permisos: [],
+      token: null,
+      isAuthenticated: false,
+      hasRole: (role: string) => get().roles.includes(role),
+      login: (userData: {roles: string[]; token: string}) => set({ 
+        roles: userData.roles,
+        token: userData.token, 
+        isAuthenticated: true 
+      }),
+      logout: () => set({ roles: [], token: null, isAuthenticated: false }),
+    }),
+    {
+      name: 'auth-storage',
+      storage: createJSONStorage(()=> encryptedStorage)
+    }
+  )
+);
+
 
 // Custom storage para localStorage con encriptación
 const encryptedStorage: StateStorage = {
@@ -26,33 +50,3 @@ const encryptedStorage: StateStorage = {
     localStorage.removeItem(name);
   },
 };
-
-interface AuthState {
-  roles: string[];
-  token: string | null;
-  isAuthenticated: boolean;
-  hasRole: (role: string) => boolean;
-  login: (userData: { roles: string[]; token: string }) => void;
-  logout: () => void;
-}
-
-export const useAuthStore = create(
-  persist<AuthState>(
-    (set, get) => ({
-      roles: ['guest'],
-      token: null,
-      isAuthenticated: false,
-      hasRole: (role: string) => get().roles.includes(role),
-      login: (userData: {roles: string[]; token: string}) => set({ 
-        roles: userData.roles,
-        token: userData.token, 
-        isAuthenticated: true 
-      }),
-      logout: () => set({ roles: ['guest'], token: null, isAuthenticated: false }),
-    }),
-    {
-      name: 'auth-storage',
-      storage: createJSONStorage(()=> encryptedStorage)
-    }
-  )
-);
