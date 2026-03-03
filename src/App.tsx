@@ -1,6 +1,7 @@
-import { BrowserRouter, Outlet, Routes } from 'react-router-dom'
+import { BrowserRouter, Routes } from 'react-router-dom'
 import { ThemeProvider } from './components/specific/ThemeProvider'
-import { renderRoutesGlobal, routes } from './router'
+import { renderRoutesGlobal } from './router/router.config'
+import { routes } from './router/routes'
 
 function App() {
   return (
