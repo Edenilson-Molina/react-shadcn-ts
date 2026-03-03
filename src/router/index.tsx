@@ -23,7 +23,7 @@ const renderRoute = (route: Router, index: number) => {
         </Layout>
       )}
     >
-      { route.children && renderRoutesGlobal(route.children)}
+      { route.children && renderRoutesGlobal(route.children) }
     </Route>
   )
 }
@@ -35,6 +35,7 @@ export const renderRoutesGlobal = (routes: Router[]) => {
 export const routes: Router[] = [
   {
     path: "/",
+    Layout: lazy(() => import("@/layouts/MainLayout")),
     children: [
       {
         path: "",
