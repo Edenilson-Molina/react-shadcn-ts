@@ -9,8 +9,9 @@ export const routes: Router[] = [
     children: [
       {
         path: "",
+        Guard: lazy(() => import("@/guards/PermissionGuard")),
         meta: {
-          canAccess: ["VER_USUARIOSS"],
+          canAccess: ["VER_USUARIOS"],
         },
         Component: lazy(() => import("@/features/dashboard/pages/DashboardPage")),
       },
