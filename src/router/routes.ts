@@ -10,7 +10,7 @@ export const routes: Router[] = [
       {
         path: "",
         meta: {
-          canAccess: ["VER_USUARIOS"],
+          canAccess: ["VER_USUARIOSS"],
         },
         Component: lazy(() => import("@/features/dashboard/pages/DashboardPage")),
       },

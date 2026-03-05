@@ -2,7 +2,6 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 
-import { ModeToggle } from "@/components/specific/ModeToggle";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -53,10 +52,6 @@ const LoginPage = () => {
 
     return (
         <main className="relative flex min-h-screen items-center justify-center bg-muted/30 p-4">
-            <div className="absolute right-4 top-4">
-                <ModeToggle />
-            </div>
-
             <Card className="w-full max-w-md border-border/60 shadow-xl">
                 <CardHeader className="space-y-2 text-center">
                     <CardTitle className="text-2xl">Iniciar sesión</CardTitle>
@@ -120,7 +115,7 @@ const LoginPage = () => {
 
                     <CardFooter>
                         <Button type="submit" className="w-full" disabled={isLoading}>
-                            {isLoading ? (
+                            { isLoading ? (
                                 <>
                                     <Loader2 className="animate-spin" />
                                     Ingresando...

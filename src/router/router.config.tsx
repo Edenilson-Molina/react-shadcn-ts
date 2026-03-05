@@ -9,10 +9,20 @@ export const withSuspense = (node: ReactNode) => (
 	<Suspense fallback={<RouteFallback />}>{node}</Suspense>
 );
 
+const getRoutePermissions = (route: Router) => {
+	if (route.meta?.canAccess) {
+		return route.meta.canAccess;
+	}
+
+	const indexChild = route.children?.find((child) => !child.path);
+	return indexChild?.meta?.canAccess;
+};
+
 const renderRoute = (route: Router, index: number) => {
 	const Component = route.Component || Fragment;
 	const Layout = route.Layout || Fragment;
 	const Guard = route.Guard;
+	const permissions = getRoutePermissions(route);
 
 	return (
 		<Route
@@ -22,7 +32,7 @@ const renderRoute = (route: Router, index: number) => {
 				<Layout>
 					{ Guard ? 
 						(
-							<Guard permissions={route.meta?.canAccess}>
+							<Guard permissions={permissions}>
 								{ route.children ? <Outlet /> : <Component /> }
 							</Guard>
 						) 
