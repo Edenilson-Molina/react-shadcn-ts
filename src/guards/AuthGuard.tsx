@@ -2,26 +2,22 @@ import { AuthGuardProps } from "@/types/auth.interface";
 import { useAuthStore } from "@/store/authStore";
 import { Navigate } from "react-router-dom";
 
-const AuthGuard = ({ children, permissions }: AuthGuardProps) => {
-    const { token, status } = useAuthStore();
+const AuthGuard = ({ children, permissions = [] }: AuthGuardProps) => {
+    const { token } = useAuthStore();
     const { isTokenExpired, hasPermission } = useAuthStore();
-    const hasAccess = permissions?.some((permiso) => hasPermission(permiso)) || false;
     
-    if (!token || isTokenExpired) {
-        if(token !== undefined) {
-            if(status === 'unauthenticated') {
-               return <Navigate to="/iniciar-sesion" />;
-            }
-            if(!hasAccess) {
-                return <Navigate to="/acceso-denegado" />;
-            }
-        } else {
-            return <Navigate to="/iniciar-sesion" />;
+    if (!token || isTokenExpired?.()) {
+        return <Navigate to="/iniciar-sesion" replace />;
+    }
+
+    if (permissions.length > 0) {
+        const hasAccess = permissions.some((permission) => hasPermission(permission));
+        if (!hasAccess) {
+            return <Navigate to="/acceso-denegado" replace />;
         }
     }
 
     return <>{ children }</>;
-
 }
 
 export default AuthGuard;

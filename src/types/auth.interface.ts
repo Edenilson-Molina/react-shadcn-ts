@@ -3,31 +3,41 @@ export interface AuthGuardProps {
     permissions?: string[];
 }
 
-export interface AuthResponse {
+export type AuthStatus = 'authenticated' | 'unauthenticated';
+
+export interface LoginRequest {
+    email: string;
+    password: string;
+}
+
+export interface LoginResponse {
     accessToken: string;
     status: boolean;
     expiresIn: number;
 }
 
-export interface AuthPayload {
-    id: number;
-    firstName: string;
-    lastName: string;
-    identification: string;
-    username: string;
-    email: string;
+export interface JwtPayload {
+    exp?: number;
+    roles?: string[];
+    permissions?: string[];
+    [key: string]: unknown;
+}
+
+export interface LoginSessionData {
     roles: string[];
     permissions: string[];
+    token: string;
 }
 
 export interface AuthState {
-    status: string;
+    status: AuthStatus;
     roles: string[];
     permisos: string[];
     token: string | null;
     isAuthenticated: boolean;
     hasPermission: (permission: string) => boolean;
-    login: (userData: {roles: string[]; token: string}) => void;
+    login: (userData: LoginSessionData) => void;
+    setSessionFromToken: (token: string) => void;
     logout: () => void;
-    isTokenExpired?: (token: string | null) => boolean;
+    isTokenExpired: () => boolean;
 }

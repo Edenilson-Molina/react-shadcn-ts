@@ -2,8 +2,8 @@ import { useAuthStore } from "@/store/authStore";
 import { useNavigate } from "react-router-dom";
 
 const DashboardPage = () => {
-  const { logout } = useAuthStore();
-  const navegate = useNavigate();
+  const { logout, permisos } = useAuthStore();
+  console.log("Permisos del usuario:", permisos);
 
   return (
     <>

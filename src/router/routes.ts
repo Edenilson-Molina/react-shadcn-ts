@@ -5,7 +5,7 @@ export const routes: Router[] = [
   {
     path: "/",
     Layout: lazy(() => import("@/layouts/MainLayout")),
-    Guard: lazy(() => import("@/components/specific/ProtectedRoute")),
+    Guard: lazy(() => import("@/guards/AuthGuard")),
     children: [
       {
         path: "",

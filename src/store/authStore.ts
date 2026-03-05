@@ -1,9 +1,21 @@
-import { AuthState } from '@/types/auth.interface';
+import { AuthState, JwtPayload, LoginSessionData } from '@/types/auth.interface';
 import { create } from 'zustand';
 import { persist, createJSONStorage, StateStorage } from 'zustand/middleware';
 import CryptoJS from 'crypto-js';
 
 const ENCRYPTION_KEY = import.meta.env.VITE_ENCRYPTION_KEY || 'default';
+
+const parseJwtPayload = (token: string): JwtPayload => {
+  try {
+    const encodedPayload = token.split('.')[1] || '';
+    const normalized = encodedPayload.replace(/-/g, '+').replace(/_/g, '/');
+    const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, '=');
+    const decoded = atob(padded);
+    return JSON.parse(decoded) as JwtPayload;
+  } catch {
+    return {};
+  }
+};
 
 export const useAuthStore = create(
   persist<AuthState>(
@@ -14,17 +26,31 @@ export const useAuthStore = create(
       token: null,
       isAuthenticated: false,
       hasPermission: (permission: string) => get().permisos.includes(permission),
-      login: (userData: {roles: string[]; token: string}) => set({ 
+      login: (userData: LoginSessionData) => set({ 
         roles: userData.roles,
+        permisos: userData.permissions,
         token: userData.token, 
         isAuthenticated: true,
         status: 'authenticated'
       }),
-      logout: () => set({ roles: [], token: null, isAuthenticated: false }),
+      setSessionFromToken: (token: string) => {
+        const payload = parseJwtPayload(token);
+        set({
+          roles: payload.roles || [],
+          permisos: payload.permissions || [],
+          token,
+          isAuthenticated: true,
+          status: 'authenticated',
+        });
+      },
+      logout: () => set({ roles: [], permisos: [], token: null, isAuthenticated: false, status: 'unauthenticated' }),
       isTokenExpired: () => {
         const { token } = get();
+        if (!token) return true;
+
         try {
-          const payload = JSON.parse(atob(token?.split('.')[1] || ''));
+          const payload = parseJwtPayload(token);
+          if (!payload.exp) return true;
           const expiry = payload.exp * 1000;
           return Date.now() > expiry;
         } catch (error) {

@@ -12,7 +12,7 @@ export const withSuspense = (node: ReactNode) => (
 const renderRoute = (route: Router, index: number) => {
 	const Component = route.Component || Fragment;
 	const Layout = route.Layout || Fragment;
-	const Guard = route.Guard || Fragment;
+	const Guard = route.Guard;
 
 	return (
 		<Route
@@ -20,13 +20,18 @@ const renderRoute = (route: Router, index: number) => {
 			path={route.path}
 			element={withSuspense(
 				<Layout>
-					<Guard permissions={route.meta?.canAccess}>
-						{route.children ? <Outlet /> : <Component />}
-					</Guard>
+					{ Guard ? 
+						(
+							<Guard permissions={route.meta?.canAccess}>
+								{ route.children ? <Outlet /> : <Component /> }
+							</Guard>
+						) 
+						: route.children ? (<Outlet />) : (<Component />)
+					}
 				</Layout>
 			)}
 		>
-			{route.children && renderRoutes(route.children)}
+			{ route.children && renderRoutes(route.children) }
 		</Route>
 	);
 };
