@@ -6,7 +6,7 @@ export interface Router {
     icon?: string;
     Component?: LazyExoticComponent<() => JSX.Element> | null;
     Layout?: LazyExoticComponent<(props: { children: React.ReactNode }) => JSX.Element> | null;
-    Guard?: LazyExoticComponent<(props: { children: React.ReactNode }) => JSX.Element> | null;
+    Guard?: LazyExoticComponent<(props: { children: React.ReactNode, permissions?: string[] }) => JSX.Element> | null;
     meta?: {
         title?: string;
         icon?: string;

@@ -20,7 +20,7 @@ const renderRoute = (route: Router, index: number) => {
 			path={route.path}
 			element={withSuspense(
 				<Layout>
-					<Guard>
+					<Guard permissions={route.meta?.canAccess}>
 						{route.children ? <Outlet /> : <Component />}
 					</Guard>
 				</Layout>

@@ -5,16 +5,23 @@ export const routes: Router[] = [
   {
     path: "/",
     Layout: lazy(() => import("@/layouts/MainLayout")),
+    Guard: lazy(() => import("@/components/specific/ProtectedRoute")),
     children: [
       {
         path: "",
+        meta: {
+          canAccess: ["VER_USUARIOS"],
+        },
         Component: lazy(() => import("@/features/dashboard/pages/DashboardPage")),
       },
     ],
   },
   {
-    path: "/login",
-    Guard: lazy(() => import("@/components/specific/ProtectedRoute")),
+    path: "/iniciar-sesion",
     Component: lazy(() => import("@/features/auth/pages/LoginPage")),
   },
+  {
+    path: "/acceso-denegado",
+    Component: lazy(() => import("@/features/auth/pages/AccessDeniedPage")),
+  }
 ];

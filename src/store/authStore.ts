@@ -8,17 +8,32 @@ const ENCRYPTION_KEY = import.meta.env.VITE_ENCRYPTION_KEY || 'default';
 export const useAuthStore = create(
   persist<AuthState>(
     (set, get) => ({
+      status: 'unauthenticated',
       roles: [],
       permisos: [],
       token: null,
       isAuthenticated: false,
-      hasRole: (role: string) => get().roles.includes(role),
+      hasPermission: (permission: string) => get().permisos.includes(permission),
       login: (userData: {roles: string[]; token: string}) => set({ 
         roles: userData.roles,
         token: userData.token, 
-        isAuthenticated: true 
+        isAuthenticated: true,
+        status: 'authenticated'
       }),
       logout: () => set({ roles: [], token: null, isAuthenticated: false }),
+      isTokenExpired: () => {
+        const { token } = get();
+        try {
+          const payload = JSON.parse(atob(token?.split('.')[1] || ''));
+          const expiry = payload.exp * 1000;
+          return Date.now() > expiry;
+        } catch (error) {
+          console.error('Error verificando token:', error);
+          return true;
+        }
+      },
+      
+
     }),
     {
       name: 'auth-storage',

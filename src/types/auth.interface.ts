@@ -1,3 +1,8 @@
+export interface AuthGuardProps {
+    children: React.ReactNode;
+    permissions?: string[];
+}
+
 export interface AuthResponse {
     accessToken: string;
     status: boolean;
@@ -16,11 +21,13 @@ export interface AuthPayload {
 }
 
 export interface AuthState {
-  roles: string[];
-  permisos: string[];
-  token: string | null;
-  isAuthenticated: boolean;
-  hasRole: (role: string) => boolean;
-  login: (userData: {roles: string[]; token: string}) => void;
-  logout: () => void;
+    status: string;
+    roles: string[];
+    permisos: string[];
+    token: string | null;
+    isAuthenticated: boolean;
+    hasPermission: (permission: string) => boolean;
+    login: (userData: {roles: string[]; token: string}) => void;
+    logout: () => void;
+    isTokenExpired?: (token: string | null) => boolean;
 }
