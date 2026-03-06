@@ -1,15 +1,18 @@
 import { lazy } from "react";
 import type { Router } from "@/types/route.interface";
+import AuthGuard from "@/guards/AuthGuard";
+import PermissionGuard from "@/guards/PermissionGuard";
+import GuestGuard from "@/guards/GuestGuard";
 
 export const routes: Router[] = [
   {
     path: "/",
     Layout: lazy(() => import("@/layouts/MainLayout")),
-    Guard: lazy(() => import("@/guards/AuthGuard")),
+    Guard: AuthGuard,
     children: [
       {
         path: "",
-        Guard: lazy(() => import("@/guards/PermissionGuard")),
+        Guard: PermissionGuard,
         meta: {
           canAccess: ["VER_USUARIOS"],
         },
@@ -19,7 +22,7 @@ export const routes: Router[] = [
   },
   {
     path: "/iniciar-sesion",
-    Guard: lazy(() => import("@/guards/GuestGuard")),
+    Guard: GuestGuard,
     Component: lazy(() => import("@/features/auth/pages/LoginPage")),
   },
   {

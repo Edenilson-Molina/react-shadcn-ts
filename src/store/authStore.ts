@@ -85,8 +85,10 @@ export const useAuthStore = create(
       roles: [],
       permisos: [],
       token: null,
+      hydrated: false,
       isAuthenticated: false,
       hasPermission: (permission: string) => get().permisos.includes(permission),
+      setHydrated: (value: boolean) => set({ hydrated: value }),
       login: (userData: LoginSessionData) => set({ 
         roles: userData.roles,
         permisos: userData.permissions,
@@ -124,7 +126,10 @@ export const useAuthStore = create(
     }),
     {
       name: 'auth-storage',
-      storage: createJSONStorage(() => encryptedStorage)
+      storage: createJSONStorage(() => encryptedStorage),
+      onRehydrateStorage: () => (state) => {
+        state?.setHydrated(true);
+      },
     }
   )
 );

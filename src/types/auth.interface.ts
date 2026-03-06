@@ -34,10 +34,12 @@ export interface AuthState {
     roles: string[];
     permisos: string[];
     token: string | null;
+    hydrated: boolean;
     isAuthenticated: boolean;
     hasPermission: (permission: string) => boolean;
     login: (userData: LoginSessionData) => void;
     setSessionFromToken: (token: string) => void;
+    setHydrated: (value: boolean) => void;
     logout: () => void;
     isTokenExpired: () => boolean;
 }

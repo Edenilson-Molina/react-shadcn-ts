@@ -3,7 +3,11 @@ import { useAuthStore } from "@/store/authStore";
 import { Navigate } from "react-router-dom";
 
 const PermissionGuard = ({ children, permissions = [] }: AuthGuardProps) => {
-    const { hasPermission } = useAuthStore();
+    const { hydrated, hasPermission } = useAuthStore();
+
+    if (!hydrated) {
+        return null;
+    }
 
     if (permissions.length > 0) {
         const hasAccess = permissions.some((permission) => hasPermission(permission));
