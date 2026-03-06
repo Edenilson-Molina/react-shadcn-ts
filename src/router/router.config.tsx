@@ -21,12 +21,10 @@ const renderRoute = (route: Router, index: number) => {
 			element={withSuspense(
 				<Layout>
 					{ Guard ? 
-						(
-							<Guard permissions={route.meta?.canAccess}>
-								{ route.children ? <Outlet /> : <Component /> }
-							</Guard>
-						) 
-						: route.children ? (<Outlet />) : (<Component />)
+						<Guard permissions={route.meta?.canAccess}>
+							{ route.children ? <Outlet /> : <Component /> }
+						</Guard>
+						: route.children ? <Outlet /> : <Component />
 					}
 				</Layout>
 			)}

@@ -19,6 +19,7 @@ export const routes: Router[] = [
   },
   {
     path: "/iniciar-sesion",
+    Guard: lazy(() => import("@/guards/GuestGuard")),
     Component: lazy(() => import("@/features/auth/pages/LoginPage")),
   },
   {

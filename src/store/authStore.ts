@@ -4,6 +4,67 @@ import { persist, createJSONStorage, StateStorage } from 'zustand/middleware';
 import CryptoJS from 'crypto-js';
 
 const ENCRYPTION_KEY = import.meta.env.VITE_ENCRYPTION_KEY || 'default';
+const inMemoryStorage = new Map<string, string>();
+
+const canUseLocalStorage = () => {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  try {
+    const key = '__auth_storage_test__';
+    window.localStorage.setItem(key, key);
+    window.localStorage.removeItem(key);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const encryptedStorage: StateStorage = {
+  getItem: (name: string): string | null => {
+    try {
+      const value = canUseLocalStorage()
+        ? window.localStorage.getItem(name)
+        : (inMemoryStorage.get(name) ?? null);
+
+      if (!value) return null;
+
+      const bytes = CryptoJS.AES.decrypt(value, ENCRYPTION_KEY);
+      const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+      return decrypted || null;
+    } catch (error) {
+      console.error('Error desencriptando:', error);
+      return null;
+    }
+  },
+  setItem: (name: string, value: string): void => {
+    try {
+      const encrypted = CryptoJS.AES.encrypt(value, ENCRYPTION_KEY).toString();
+
+      if (canUseLocalStorage()) {
+        window.localStorage.setItem(name, encrypted);
+        return;
+      }
+
+      inMemoryStorage.set(name, encrypted);
+    } catch (error) {
+      console.error('Error guardando auth-storage:', error);
+    }
+  },
+  removeItem: (name: string): void => {
+    try {
+      if (canUseLocalStorage()) {
+        window.localStorage.removeItem(name);
+        return;
+      }
+
+      inMemoryStorage.delete(name);
+    } catch (error) {
+      console.error('Error removiendo auth-storage:', error);
+    }
+  },
+};
 
 const parseJwtPayload = (token: string): JwtPayload => {
   try {
@@ -63,31 +124,7 @@ export const useAuthStore = create(
     }),
     {
       name: 'auth-storage',
-      storage: createJSONStorage(()=> encryptedStorage)
+      storage: createJSONStorage(() => encryptedStorage)
     }
   )
 );
-
-
-// Custom storage para localStorage con encriptación
-const encryptedStorage: StateStorage = {
-  getItem: (name: string): string | null => {
-    const value = localStorage.getItem(name);
-    if (!value) return null;
-    try {
-      const bytes = CryptoJS.AES.decrypt(value, ENCRYPTION_KEY);
-      const decrypted = bytes.toString(CryptoJS.enc.Utf8);
-      return decrypted;
-    } catch (error) {
-      console.error('Error desencriptando:', error);
-      return null; // Si falla, devolvemos null y Zustand usará el estado inicial
-    }
-  },
-  setItem: (name: string, value: string): void => {
-    const encrypted = CryptoJS.AES.encrypt(value, ENCRYPTION_KEY).toString();
-    localStorage.setItem(name, encrypted);
-  },
-  removeItem: (name: string): void => {
-    localStorage.removeItem(name);
-  },
-};
