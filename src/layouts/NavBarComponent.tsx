@@ -28,7 +28,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ]
 
-export const Navbar = () => {
+export const AppNavbar = () => {
   return (
     <nav className="flex items-center justify-between w-full px-4 md:px-4">
       <SidebarTrigger className="rounded-full" />

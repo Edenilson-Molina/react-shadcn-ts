@@ -6,7 +6,7 @@ import { routes } from './router/routes'
 function App() {
   return (
     <ThemeProvider 
-      defaultTheme='system' 
+      defaultTheme='light' 
       storageKey='vite-ui-theme'
     >
       <BrowserRouter>
