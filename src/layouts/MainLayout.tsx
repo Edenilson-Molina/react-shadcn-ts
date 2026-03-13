@@ -1,13 +1,15 @@
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren } from "react";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/layouts/SideBarComponent";
 import { AppNavbar } from "./NavBarComponent";
 
+import { useSessionStore } from "@/store/session.store";
+
 const MainLayout = ({ children }: PropsWithChildren) => {
-  const [open, setOpen] = useState(false);
+  const { openSideBar, setOpenSideBar } = useSessionStore();
   return (
     <>
-      <SidebarProvider open={open} onOpenChange={setOpen}>
+      <SidebarProvider open={openSideBar} onOpenChange={setOpenSideBar}>
         <AppSidebar />
         <SidebarInset className="flex flex-col w-full min-h-screen py-4 sm:pl-1 sm:pr-1 md:pr-2 gap-4">
           <AppNavbar />

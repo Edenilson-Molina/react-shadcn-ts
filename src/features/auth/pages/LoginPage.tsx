@@ -14,11 +14,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginService } from "@/services/auth.services";
-import { useAuthStore } from "@/store/authStore";
+import { useSessionStore } from "@/store/session.store";
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    const { setSessionFromToken } = useAuthStore();
+    const { setSessionFromToken } = useSessionStore();
 
     const [email, setEmail] = useState("admin@example.com");
     const [password, setPassword] = useState("pass123");

@@ -1,9 +1,9 @@
 import { AuthGuardProps } from "@/types/auth.interface";
-import { useAuthStore } from "@/store/authStore";
+import { useSessionStore } from "@/store/session.store";
 import { Navigate } from "react-router-dom";
 
 const PermissionGuard = ({ children, permissions = [] }: AuthGuardProps) => {
-    const { hydrated, hasPermission } = useAuthStore();
+    const { hydrated, hasPermission } = useSessionStore();
 
     if (!hydrated) {
         return null;

@@ -30,6 +30,7 @@ export interface LoginSessionData {
 }
 
 export interface AuthState {
+    openSideBar: boolean;
     status: AuthStatus;
     roles: string[];
     permisos: string[];
@@ -37,6 +38,7 @@ export interface AuthState {
     hydrated: boolean;
     isAuthenticated: boolean;
     hasPermission: (permission: string) => boolean;
+    setOpenSideBar: (value: boolean) => void;
     login: (userData: LoginSessionData) => void;
     setSessionFromToken: (token: string) => void;
     setHydrated: (value: boolean) => void;

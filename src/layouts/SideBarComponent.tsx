@@ -41,8 +41,8 @@ const menuItems = [
         isActive: true,
         items: [
           {
-            title: "Administración",
-            url: "/",
+            title: "Templates",
+            url: "/template",
           }
         ],
       },
@@ -52,10 +52,10 @@ const menuItems = [
 
 export function AppSidebar() {
   return (
-    <Sidebar variant="sidebar" collapsible="offcanvas">
+    <Sidebar variant="sidebar">
       <SidebarHeader>
         <div className="flex flex-col items-center gap-2 justify-center pt-4">
-          <img src="/src/assets/react.svg" alt="Logo" className="h-12 w-12" />
+          <img src="/src/assets/react.svg" alt="Logo" className="border border-transparent bg-white p-1 rounded-full h-16 w-16" />
           <span className="font-extrabold uppercase">Client App</span>
         </div>
       </SidebarHeader>

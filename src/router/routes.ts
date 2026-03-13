@@ -11,13 +11,21 @@ export const routes: Router[] = [
     Guard: AuthGuard,
     children: [
       {
-        path: "",
+        path: "/",
         Guard: PermissionGuard,
         meta: {
           canAccess: ["VER_USUARIOS"],
         },
         Component: lazy(() => import("@/features/dashboard/pages/DashboardPage")),
       },
+      {
+        path: "/template",
+        Guard: PermissionGuard,
+        meta: {
+          canAccess: ["VER_USUARIOS"],
+        },
+        Component: lazy(() => import("@/features/dashboard/pages/TemplatePage")),
+      }
     ],
   },
   {

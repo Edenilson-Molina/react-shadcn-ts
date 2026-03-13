@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuthStore } from "@/store/authStore";
+import { useSessionStore } from "@/store/session.store";
 
 const baseURL = "http://localhost:8000";
 
@@ -14,7 +14,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().token;
+  const token = useSessionStore.getState().token;
   if (token) {
     config.headers["Authorization"] = "Bearer " + token;
   }
@@ -27,7 +27,7 @@ instance.interceptors.response.use(
   },
   (error) => { 
     if (error.response && error.response.status === 401) {
-      useAuthStore.getState().logout();
+      useSessionStore.getState().logout();
     }
     return Promise.reject(error);
   }
