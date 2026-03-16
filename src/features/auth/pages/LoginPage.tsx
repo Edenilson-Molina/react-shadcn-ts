@@ -56,7 +56,7 @@ const LoginPage = () => {
                 <CardHeader className="space-y-2 text-center">
                     <CardTitle className="text-2xl">Iniciar sesión</CardTitle>
                     <CardDescription>
-                        Accede con tu correo y contraseña para continuar.
+                        Accede con tu correo y contraseña para continuar
                     </CardDescription>
                 </CardHeader>
 

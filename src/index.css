@@ -1,3 +1,4 @@
+@import "@/assets/styles/base.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +11,7 @@
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    --primary: 196 95% 48%;
+    --primary: 201 89% 55%;
     --primary-foreground: 222 47% 11%;
     --secondary: 210 38% 93%;
     --secondary-foreground: 222 47% 16%;
@@ -28,21 +29,21 @@
     --success-foreground: 0 0% 100%;
     --border: 210 22% 86%;
     --input: 210 22% 86%;
-    --ring: 196 95% 48%;
+    --ring: 201 89% 55%;
     --radius: 0.75rem;
-    --chart-1: 196 95% 48%;
+    --chart-1: 201 89% 55%;
     --chart-2: 158 72% 38%;
     --chart-3: 240 80% 64%;
     --chart-4: 38 92% 50%;
     --chart-5: 0 78% 56%;
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 222 47% 12%;
-    --sidebar-primary: 196 95% 48%;
+    --sidebar-primary: 201 89% 55%;
     --sidebar-primary-foreground: 222 47% 11%;
     --sidebar-accent: 0 0% 98%;
     --sidebar-accent-foreground: 222 47% 12%;
     --sidebar-border: 210 25% 84%;
-    --sidebar-ring: 196 95% 48%;
+    --sidebar-ring: 201 89% 55%;
   }
 
   .dark {
@@ -52,7 +53,7 @@
     --card-foreground: 210 40% 96%;
     --popover: 222 45% 10%;
     --popover-foreground: 210 40% 96%;
-    --primary: 196 92% 58%;
+    --primary: 198 93% 64%;
     --primary-foreground: 222 47% 8%;
     --secondary: 218 28% 17%;
     --secondary-foreground: 210 35% 95%;
@@ -70,20 +71,20 @@
     --success-foreground: 222 47% 9%;
     --border: 217 24% 22%;
     --input: 217 24% 22%;
-    --ring: 196 92% 58%;
-    --chart-1: 196 92% 58%;
+    --ring: 198 93% 64%;
+    --chart-1: 198 93% 64%;
     --chart-2: 158 69% 45%;
     --chart-3: 262 80% 67%;
     --chart-4: 40 96% 58%;
     --chart-5: 0 75% 56%;
     --sidebar-background: 222 44% 11%;
     --sidebar-foreground: 210 34% 94%;
-    --sidebar-primary: 196 92% 58%;
+    --sidebar-primary: 198 93% 64%;
     --sidebar-primary-foreground: 222 47% 8%;
     --sidebar-accent: 200 52% 18%;
     --sidebar-accent-foreground: 196 80% 88%;
     --sidebar-border: 217 24% 22%;
-    --sidebar-ring: 196 92% 58%;
+    --sidebar-ring: 198 93% 64%;
   }
 
   @font-face {

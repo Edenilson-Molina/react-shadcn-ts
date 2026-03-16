@@ -1,3 +1,4 @@
+import Loading from "@/features/shared/Loading";
 import { Fragment, Suspense, type ReactNode } from "react";
 import { Outlet, Route } from "react-router-dom";
 import { routes } from "@/router/routes";
@@ -6,7 +7,7 @@ import type { Router } from "@/types/route.interface";
 export const RouteFallback = () => <div>Loading...</div>;
 
 export const withSuspense = (node: ReactNode) => (
-	<Suspense fallback={<RouteFallback />}>{node}</Suspense>
+	<Suspense fallback={<Loading />}>{node}</Suspense>
 );
 
 const renderRoute = (route: Router, index: number) => {
