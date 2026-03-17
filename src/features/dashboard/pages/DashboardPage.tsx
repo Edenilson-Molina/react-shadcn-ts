@@ -22,7 +22,7 @@ const DashboardPage = () => {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground mt-1">
-            Bienvenido de nuevo. Aquí está el resumen de tu negocio.
+            Bienvenido de nuevo, aquí tienes un resumen de tus actividades recientes y estadísticas clave.
           </p>
         </div>
         <div className="flex gap-2">

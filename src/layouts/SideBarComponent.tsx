@@ -106,7 +106,7 @@ export function AppSidebar() {
                           <SidebarMenuItem className="px-2">
                             <CollapsibleTrigger asChild>
                               <SidebarMenuButton tooltip={item.title}>
-                                {item.icon && <item.icon className="!size-5 text-gray-700" />}
+                                {item.icon && <item.icon className="!size-5 text-gray-700 dark:text-gray-300" />}
                                 <span>{item.title}</span>
                                 <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                               </SidebarMenuButton>
@@ -132,7 +132,7 @@ export function AppSidebar() {
                         <SidebarMenuItem key={item.title} className={item.url === window.location.pathname ? "relative before:absolute before:-left-3 before:top-1/2 before:h-4 before:w-1 before:-translate-y-1/2 before:rounded before:bg-sidebar-primary" : ""}>
                           <SidebarMenuButton asChild tooltip={item.title} isActive={item.url === window.location.pathname} className={!(item.url === window.location.pathname) ? "p-2" : "p-1"}>
                             <a href={item.url} className="flex items-center gap-2">
-                              {item.icon && <item.icon className="!size-5 text-gray-700" />}
+                              {item.icon && <item.icon className="!size-5 text-gray-700 dark:text-gray-300" />}
                               <span>{item.title}</span>
                             </a>
                           </SidebarMenuButton>
