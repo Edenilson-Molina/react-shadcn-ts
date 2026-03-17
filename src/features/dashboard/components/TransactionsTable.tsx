@@ -23,21 +23,21 @@ interface TransactionsTableProps {
 }
 
 const statusConfig: Record<string, string> = {
-  completado: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  pendiente: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  rechazado: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+  completado: "border border-success/30 bg-success/15 text-success hover:bg-success/20 dark:bg-success/20",
+  pendiente: "border border-warning/30 bg-warning/15 text-warning-foreground hover:bg-warning/20 dark:bg-warning/25",
+  rechazado: "border border-destructive/30 bg-destructive/15 text-destructive hover:bg-destructive/20 dark:bg-destructive/25",
 };
 
 const TransactionsTable = ({ transactions }: TransactionsTableProps) => {
   return (
-    <Card>
+    <Card className="border-border/70 bg-card/85 dark:border-white/10 dark:bg-card/60">
       <CardHeader>
         <CardTitle>Transacciones Recientes</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-lg border border-border/60 dark:border-white/10">
           <Table>
-            <TableHeader>
+            <TableHeader className="bg-muted/40 dark:bg-background/30">
               <TableRow>
                 <TableHead>Cliente</TableHead>
                 <TableHead>Fecha</TableHead>
@@ -48,11 +48,11 @@ const TransactionsTable = ({ transactions }: TransactionsTableProps) => {
             </TableHeader>
             <TableBody>
               {transactions.map((transaction) => (
-                <TableRow key={transaction.id}>
+                <TableRow key={transaction.id} className="transition-colors hover:bg-muted/30 dark:hover:bg-background/30">
                   <TableCell className="font-medium">{transaction.customer}</TableCell>
-                  <TableCell>{transaction.date}</TableCell>
+                  <TableCell className="text-muted-foreground">{transaction.date}</TableCell>
                   <TableCell>{transaction.category}</TableCell>
-                  <TableCell className="font-semibold">{transaction.amount}</TableCell>
+                  <TableCell className="font-semibold text-foreground">{transaction.amount}</TableCell>
                   <TableCell>
                     <Badge className={statusConfig[transaction.status]}>
                       {transaction.status.charAt(0).toUpperCase() + transaction.status.slice(1)}

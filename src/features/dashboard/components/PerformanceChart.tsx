@@ -14,25 +14,25 @@ const PerformanceChart = ({ data }: PerformanceChartProps) => {
   const maxValue = Math.max(...data.map((d) => Math.max(d.value, d.goal)));
 
   return (
-    <Card>
+    <Card className="border-border/70 bg-card/85 dark:border-white/10 dark:bg-card/60">
       <CardHeader>
         <CardTitle>Desempeño Semanal</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
-          <div className="flex items-end justify-between h-64 gap-2">
+          <div className="flex h-64 items-end justify-between gap-2 rounded-xl border border-border/60 bg-background/50 p-3 dark:border-white/10 dark:bg-background/25">
             {data.map((item) => (
               <div key={item.day} className="flex-1 flex flex-col items-center gap-2">
                 <div className="flex gap-1 h-full items-end">
                   <div
-                    className="flex-1 bg-primary rounded-t-lg opacity-70 transition-all hover:opacity-100"
+                    className="flex-1 rounded-t-lg bg-primary/80 transition-all hover:bg-primary"
                     style={{
                       height: `${(item.value / maxValue) * 100}%`,
                     }}
                     title={`Actual: ${item.value}`}
                   />
                   <div
-                    className="w-1 bg-primary/30 rounded-t-lg transition-all"
+                    className="w-1 rounded-t-lg bg-primary/35 transition-all"
                     style={{
                       height: `${(item.goal / maxValue) * 100}%`,
                     }}
