@@ -1,4 +1,4 @@
-import network from './network.services';
+import network from '../../../services/network.services';
 import { LoginRequest, LoginResponse } from '@/types/auth.interface';
 
 export const loginService = async (payload: LoginRequest) => {
@@ -15,7 +15,7 @@ export const loginService = async (payload: LoginRequest) => {
 
 export const logoutService = async () => {
     try {
-        return await network.post('/auth/logout');
+        return await network.get('/auth/logout');
     } catch (error) {
         console.error('Error en logoutService:', error);
         throw error;

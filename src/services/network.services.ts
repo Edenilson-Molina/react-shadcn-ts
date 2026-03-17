@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useSessionStore } from "@/store/session.store";
 
-const baseURL = "http://localhost:8000";
-
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_VUE_APP_API_URL || baseURL,
+  baseURL: import.meta.env.VITE_VUE_APP_API_URL + '/api',
   headers: {
     "Content-type": "application/json",
     "Accept": "application/json",

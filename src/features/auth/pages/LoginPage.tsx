@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
+import { Eye, EyeOff, Loader2, Lock, LogIn, Mail } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { loginService } from "@/services/auth.services";
+import { loginService } from "@/features/auth/services/auth.services";
 import { useSessionStore } from "@/store/session.store";
 
 const LoginPage = () => {
@@ -115,14 +115,17 @@ const LoginPage = () => {
 
                     <CardFooter>
                         <Button type="submit" className="w-full" disabled={isLoading}>
-                            { isLoading ? (
+                            { isLoading ? 
                                 <>
                                     <Loader2 className="animate-spin" />
                                     Ingresando...
                                 </>
-                            ) : (
-                                "Ingresar"
-                            )}
+                                : 
+                                <>
+                                    <LogIn className="size-4" />
+                                    Ingresar
+                                </>
+                            }
                         </Button>
                     </CardFooter>
                 </form>

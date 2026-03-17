@@ -23,7 +23,16 @@ import {
   Box,
   SquareTerminal,
   ChevronRight,
+  Loader2,
 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+
+import { LogOut } from "lucide-react";
+
+import { logoutService } from "@/features/auth/services/auth.services";
+import { useSessionStore } from "@/store/session.store";
+import { useNavigate } from "react-router-dom";
+import { Fragment, useState } from "react";
 
 const menuItems = [
   {
@@ -51,6 +60,25 @@ const menuItems = [
 ]
 
 export function AppSidebar() {
+  const logout = useSessionStore((state) => state.logout);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      setIsLoading(true);
+      const response = await logoutService();
+      if (response.status === 200) {
+        logout();
+        navigate("/login", { replace: true });
+      }
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Sidebar variant="sidebar">
       <SidebarHeader>
@@ -64,7 +92,7 @@ export function AppSidebar() {
           <SidebarMenu>
             { 
               menuItems.map((section) => (
-                <>
+                <Fragment key={section.seccion}>
                   <SidebarGroupLabel>{section.seccion}</SidebarGroupLabel>
                   {section.data.map((item) => {
                     if (item.items) {
@@ -75,18 +103,18 @@ export function AppSidebar() {
                           defaultOpen={item.isActive}
                           className="group/collapsible"
                         >
-                          <SidebarMenuItem>
+                          <SidebarMenuItem className="px-2">
                             <CollapsibleTrigger asChild>
                               <SidebarMenuButton tooltip={item.title}>
-                                {item.icon && <item.icon />}
+                                {item.icon && <item.icon className="!size-5 text-gray-700" />}
                                 <span>{item.title}</span>
                                 <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                               </SidebarMenuButton>
                             </CollapsibleTrigger>
-                            <CollapsibleContent>
+                            <CollapsibleContent className="m-1">
                               <SidebarMenuSub>
                                 {item.items?.map((subItem) => (
-                                  <SidebarMenuSubItem key={subItem.title} className={subItem.url === window.location.pathname ? "relative before:absolute before:-left-3 before:top-1/2 before:h-4 before:w-1 before:-translate-y-1/2 before:rounded before:bg-sidebar-primary" : ""}>
+                                  <SidebarMenuSubItem key={subItem.title} className={subItem.url === window.location.pathname ? "relative before:absolute before:left-[-0.75rem] before:top-1/2 before:h-4 before:w-1 before:-translate-y-1/2 before:rounded before:bg-sidebar-primary" : ""}>
                                     <SidebarMenuSubButton asChild isActive={subItem.url === window.location.pathname}>
                                     <a href={subItem.url}>
                                       <span>{subItem.title}</span>
@@ -102,9 +130,9 @@ export function AppSidebar() {
                     } else {
                       return (
                         <SidebarMenuItem key={item.title} className={item.url === window.location.pathname ? "relative before:absolute before:-left-3 before:top-1/2 before:h-4 before:w-1 before:-translate-y-1/2 before:rounded before:bg-sidebar-primary" : ""}>
-                          <SidebarMenuButton asChild tooltip={item.title} isActive={item.url === window.location.pathname}>
+                          <SidebarMenuButton asChild tooltip={item.title} isActive={item.url === window.location.pathname} className={!(item.url === window.location.pathname) ? "p-2" : "p-1"}>
                             <a href={item.url} className="flex items-center gap-2">
-                              {item.icon && <item.icon />}
+                              {item.icon && <item.icon className="!size-5 text-gray-700" />}
                               <span>{item.title}</span>
                             </a>
                           </SidebarMenuButton>
@@ -112,13 +140,33 @@ export function AppSidebar() {
                       )
                     }
                   })}
-                </>
+                </Fragment>
               ))
             }
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={ handleLogout }
+          disabled={isLoading}
+        >
+          {
+            isLoading ? 
+              <>
+                <Loader2 className="animate-spin" />
+                Cerrando sesión...
+              </>
+              :
+              <>
+                <LogOut className="size-4" />
+                Cerrar sesión
+              </>
+          }
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   )
 }
