@@ -10,27 +10,28 @@ interface StatCardProps {
   changeType: "positive" | "negative";
   icon: string;
   className?: string;
+  type?: "primary" | "info" | "warning" | "success";
 }
 
 const iconMap: Record<string, ReactNode> = {
-  TrendingUp: <TrendingUp className="h-5 w-5 text-primary" />,
-  Users: <Users className="h-5 w-5 text-info" />,
-  BarChart3: <BarChart3 className="h-5 w-5 text-warning" />,
-  PieChart: <PieChart className="h-5 w-5 text-success" />,
+  TrendingUp: <TrendingUp className="h-7 w-7 text-primary" />,
+  Users: <Users className="h-7 w-7 text-info" />,
+  BarChart3: <BarChart3 className="h-7 w-7 text-warning" />,
+  PieChart: <PieChart className="h-7 w-7 text-success" />,
 };
 
-const StatCard = ({ title, value, change, changeType, icon, className }: StatCardProps) => {
+const StatCard = ({ title, value, change, changeType, icon, className, type }: StatCardProps) => {
   return (
     <Card
       className={cn(
-        "group overflow-hidden border-border/70 bg-card/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 dark:border-white/10 dark:bg-card/60",
+        "group overflow-hidden border shadow-none transition-all duration-300 hover:-translate-y-0.5 dark:border-white/10 dark:bg-card/60 ",
         className
       )}
     >
       <CardHeader className="relative flex flex-row items-center justify-between space-y-0 pb-3">
-        <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/10 blur-2xl transition-opacity duration-300 group-hover:opacity-100 dark:bg-primary/20" />
-        <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
-        <span className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/70 bg-background/80 dark:border-white/10 dark:bg-background/40">
+        <div className="absolute -right-6 -top-6 h-32 w-32 blur-3xl rounded-full bg-primary/20  transition-opacity duration-300 group-hover:opacity-100 dark:bg-primary/20" />
+        <CardTitle className="text-base font-medium text-muted-foreground">{title}</CardTitle>
+        <span className="relative inline-flex h-10 w-10 items-center justify-center">
           {iconMap[icon]}
         </span>
       </CardHeader>

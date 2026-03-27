@@ -6,6 +6,7 @@ export const dashboardStats: Array<{
   change: string;
   changeType: "positive" | "negative";
   icon: string;
+  type?: "primary" | "info" | "warning" | "success";
 }> = [
   {
     id: 1,
@@ -14,6 +15,7 @@ export const dashboardStats: Array<{
     change: "+20.1%",
     changeType: "positive",
     icon: "TrendingUp",
+    type: "primary"
   },
   {
     id: 2,
@@ -22,6 +24,7 @@ export const dashboardStats: Array<{
     change: "+15.3%",
     changeType: "positive",
     icon: "Users",
+    type: "info"
   },
   {
     id: 3,
@@ -30,6 +33,7 @@ export const dashboardStats: Array<{
     change: "-4.3%",
     changeType: "negative",
     icon: "BarChart3",
+    type: "warning"
   },
   {
     id: 4,
@@ -38,6 +42,7 @@ export const dashboardStats: Array<{
     change: "+2.5%",
     changeType: "positive",
     icon: "PieChart",
+    type: "success"
   },
 ];
 
