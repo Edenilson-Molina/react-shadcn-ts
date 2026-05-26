@@ -108,11 +108,11 @@ export function AppSidebar() {
                           defaultOpen={isRouteActive(item.items)}
                           className="group/collapsible"
                         >
-                          <SidebarMenuItem className="px-2">
+                          <SidebarMenuItem className={isRouteActive(item.items) ? "px-2" : "px-3"}>
                             <CollapsibleTrigger asChild>
                               <SidebarMenuButton tooltip={item.title}>
                                 {item.icon && <item.icon className="!size-6 text-gray-700 dark:text-gray-300" />}
-                                <span className="font-bold">{item.title}</span>
+                                <span className="font-semibold">{item.title}</span>
                                 <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                               </SidebarMenuButton>
                             </CollapsibleTrigger>
@@ -135,10 +135,10 @@ export function AppSidebar() {
                     } else {
                       return (
                         <SidebarMenuItem key={item.title} className={item.url === window.location.pathname ? "relative before:absolute before:-left-3 before:top-1/2 before:h-4 before:w-1 before:-translate-y-1/2 before:rounded before:bg-sidebar-primary" : ""}>
-                          <SidebarMenuButton asChild tooltip={item.title} isActive={item.url === window.location.pathname} className={!(item.url === window.location.pathname) ? "p-2" : "p-1"}>
+                          <SidebarMenuButton asChild tooltip={item.title} isActive={item.url === window.location.pathname} className={!(item.url === window.location.pathname) ? "p-2" : "p-1 pl-2"}>
                             <a href={item.url} className="flex items-center gap-2">
                               {item.icon && <item.icon className="!size-6 text-gray-700 dark:text-gray-300" />}
-                              <span className="font-bold">{item.title}</span>
+                              <span className="font-semibold">{item.title}</span>
                             </a>
                           </SidebarMenuButton>
                         </SidebarMenuItem>

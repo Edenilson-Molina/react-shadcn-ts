@@ -33,9 +33,9 @@ const LoginPage = () => {
 
         try {
             const response = await loginService({ email, password });
-            const { accessToken, status } = response.data;
-
-            if (!status || !accessToken) {
+            const { accessToken } = response.data;
+            
+            if (!accessToken) {
                 throw new Error("Respuesta de login inválida");
             }
 
