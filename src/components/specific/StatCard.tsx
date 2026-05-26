@@ -10,7 +10,6 @@ interface StatCardProps {
   changeType: "positive" | "negative";
   icon: string;
   className?: string;
-  type?: "primary" | "info" | "warning" | "success";
 }
 
 const iconMap: Record<string, ReactNode> = {
@@ -20,7 +19,7 @@ const iconMap: Record<string, ReactNode> = {
   PieChart: <PieChart className="h-7 w-7 text-success" />,
 };
 
-const StatCard = ({ title, value, change, changeType, icon, className, type }: StatCardProps) => {
+const StatCard = ({ title, value, change, changeType, icon, className }: StatCardProps) => {
   return (
     <Card
       className={cn(
