@@ -20,7 +20,7 @@ const DashboardPage = () => {
       <div className="animate-in fade-in-0 slide-in-from-top-2 duration-500 md:p-4">
         <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Dashboard</h1>
+            <h1 className="text-3xl text-colorText font-bold tracking-tight md:text-4xl">Dashboard</h1>
             <p className="mt-2 max-w-2xl text-muted-foreground">
             Bienvenido de nuevo, aquí tienes un resumen de tus actividades recientes y estadísticas clave.
             </p>
@@ -49,14 +49,14 @@ const DashboardPage = () => {
         }
       </div>
       <Tabs defaultValue="overview" className="space-y-4">
-        <TabsList className="animate-in fade-in-0 h-auto w-full justify-start rounded-xl border border-border/70 bg-card/70 p-1 duration-500 dark:border-white/10 dark:bg-card/50">
-          <TabsTrigger value="overview" className="rounded-lg px-4 py-2 data-[state=active]:shadow-sm">
+        <TabsList className="animate-in fade-in-0 h-auto justify-start rounded-full border border-border/70 bg-card/70 p-1 duration-500 dark:border-white/10 dark:bg-card/50">
+          <TabsTrigger value="overview" className="rounded-full px-4 py-2 data-[state=active]:shadow-sm">
             Resumen
           </TabsTrigger>
-          <TabsTrigger value="analytics" className="rounded-lg px-4 py-2 data-[state=active]:shadow-sm">
+          <TabsTrigger value="analytics" className="rounded-full px-4 py-2 data-[state=active]:shadow-sm">
             Analítica
           </TabsTrigger>
-          <TabsTrigger value="proyectos" className="rounded-lg px-4 py-2 data-[state=active]:shadow-sm">
+          <TabsTrigger value="proyectos" className="rounded-full px-4 py-2 data-[state=active]:shadow-sm">
             Proyectos
           </TabsTrigger>
         </TabsList>

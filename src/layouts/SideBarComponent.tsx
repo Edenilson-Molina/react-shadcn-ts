@@ -88,8 +88,8 @@ export function AppSidebar() {
     <Sidebar variant="inset">
       <SidebarHeader>
         <div className="flex flex-col items-center gap-2 justify-center pt-4">
-          <img src="/src/assets/react.svg" alt="Logo" className="border border-transparent bg-white p-1 rounded-full h-16 w-16" />
-          <span className="font-extrabold uppercase">Client App</span>
+          <img src="/src/assets/react.svg" alt="Logo" className="border border-transparent p-1 rounded-full h-28 w-28" />
+          <span className="font-extrabold text-[#EFE4D2] uppercase">Client App</span>
         </div>
       </SidebarHeader>
       <SidebarContent>
@@ -98,7 +98,7 @@ export function AppSidebar() {
             { 
               menuItems.map((section) => (
                 <Fragment key={section.seccion}>
-                  <SidebarGroupLabel>{section.seccion}</SidebarGroupLabel>
+                  <SidebarGroupLabel className="text-[#EFE4D2]">{section.seccion}</SidebarGroupLabel>
                   {section.data.map((item) => {
                     if (item.items) {
                       return (
@@ -111,18 +111,18 @@ export function AppSidebar() {
                           <SidebarMenuItem className={isRouteActive(item.items) ? "px-2" : "px-3"}>
                             <CollapsibleTrigger asChild>
                               <SidebarMenuButton tooltip={item.title}>
-                                {item.icon && <item.icon className="!size-6 text-gray-700 dark:text-gray-300" />}
-                                <span className="font-semibold">{item.title}</span>
-                                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                {item.icon && <item.icon className="!size-6 text-[#EFE4D2] dark:text-gray-300" />}
+                                <span className="font-semibold text-[#EFE4D2]">{item.title}</span>
+                                <ChevronRight className="ml-auto text-[#EFE4D2] transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                               </SidebarMenuButton>
                             </CollapsibleTrigger>
                             <CollapsibleContent className="m-1">
                               <SidebarMenuSub>
                                 {item.items?.map((subItem) => (
-                                  <SidebarMenuSubItem key={subItem.title} className={subItem.url === window.location.pathname ? "relative before:absolute before:left-[-0.75rem] before:top-1/2 before:h-4 before:w-1 before:-translate-y-1/2 before:rounded before:bg-sidebar-primary" : ""}>
+                                  <SidebarMenuSubItem key={subItem.title} className={subItem.url === window.location.pathname ? "relative before:absolute before:left-[-0.77rem] before:top-1/2 before:h-4 before:w-1 before:-translate-y-1/2 before:rounded before:bg-sidebar-ring" : ""}>
                                     <SidebarMenuSubButton asChild isActive={subItem.url === window.location.pathname}>
                                     <a href={subItem.url}>
-                                      <span>{subItem.title}</span>
+                                      <span className="text-[#EFE4D2]">{subItem.title}</span>
                                     </a>
                                     </SidebarMenuSubButton>
                                   </SidebarMenuSubItem>
@@ -137,8 +137,8 @@ export function AppSidebar() {
                         <SidebarMenuItem key={item.title} className={item.url === window.location.pathname ? "relative before:absolute before:-left-3 before:top-1/2 before:h-4 before:w-1 before:-translate-y-1/2 before:rounded before:bg-sidebar-primary" : ""}>
                           <SidebarMenuButton asChild tooltip={item.title} isActive={item.url === window.location.pathname} className={!(item.url === window.location.pathname) ? "p-2" : "p-1 pl-2"}>
                             <a href={item.url} className="flex items-center gap-2">
-                              {item.icon && <item.icon className="!size-6 text-gray-700 dark:text-gray-300" />}
-                              <span className="font-semibold">{item.title}</span>
+                              {item.icon && <item.icon className="!size-6 text-[#EFE4D2] dark:text-gray-300" />}
+                              <span className="font-semibold text-[#EFE4D2]">{item.title}</span>
                             </a>
                           </SidebarMenuButton>
                         </SidebarMenuItem>

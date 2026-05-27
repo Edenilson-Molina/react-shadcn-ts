@@ -5,7 +5,7 @@
 
 @layer base {
   :root {
-    --background: 210, 47%, 97%;
+    --background: 37, 48%, 88%;
     --foreground: 222 47% 11%;
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
@@ -36,14 +36,14 @@
     --chart-3: 240 80% 64%;
     --chart-4: 38 92% 50%;
     --chart-5: 0 78% 56%;
-    --sidebar-background: 210 33% 99%;
+    --sidebar-background: 208 50% 29%;
     --sidebar-foreground: 222 47% 12%;
     --sidebar-primary: 201 89% 55%;
     --sidebar-primary-foreground: 222 47% 11%;
-    --sidebar-accent: 0 0% 98%;
+    --sidebar-accent: 208 50% 29%;
     --sidebar-accent-foreground: 222 47% 12%;
     --sidebar-border: 210 25% 84%;
-    --sidebar-ring: 201 89% 55%;
+    --sidebar-ring: 37 48% 88%;
   }
 
   .dark {
