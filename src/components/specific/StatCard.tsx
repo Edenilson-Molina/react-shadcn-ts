@@ -35,7 +35,7 @@ const StatCard = ({ title, value, change, changeType, icon, className }: StatCar
         </span>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold tracking-tight transition-transform duration-300 group-hover:translate-x-0.5">
+        <div className="text-2xl text-colorText font-bold tracking-tight transition-transform duration-300 group-hover:translate-x-0.5">
           {value}
         </div>
         <p

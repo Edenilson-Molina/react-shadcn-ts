@@ -31,7 +31,7 @@ const TeamMembers = ({ members }: TeamMembersProps) => {
       <CardHeader>
         <CardTitle>Equipo</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="flex flex-col gap-2">
         {members.map((member) => (
           <div key={member.id} className="flex items-center justify-between space-x-4 rounded-xl border border-border/60 bg-background/60 p-3 transition-colors hover:bg-muted/30 dark:border-white/10 dark:bg-background/30 dark:hover:bg-background/40">
             <div className="flex items-center space-x-3 flex-1">
